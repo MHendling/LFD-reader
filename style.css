@@ -31,8 +31,8 @@ html, body{
 
 #capture--frame{
     width: 50%;
-    height: 80%;
-    position: fixed;
+    height: 70%;
+    display: block;
     margin-left: auto;
     margin-right: auto 
 }
