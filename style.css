@@ -30,9 +30,9 @@ html, body{
 }
 
 #capture--frame{
-  display: fixed;
-  align-items: center;
-  justify-content: center;
+  position: fixed;
+  left: calc(50% - 100px);
+  bottom: calc(50% - 100px);
   width: 50%;
   height: 60%;
 }
