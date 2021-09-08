@@ -30,9 +30,11 @@ html, body{
 }
 
 #capture--frame{
-  display: flex;
+  display: fixed;
   align-items: center;
   justify-content: center;
+  width: 50%;
+  height: 60%;
 }
 
 .taken{
