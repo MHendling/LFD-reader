@@ -33,6 +33,7 @@ html, body{
     width: 50%;
     height: 70%;
     /*display: block;*/
+    position: fixed;
     margin-left: auto;
     margin-right: auto;
 }
