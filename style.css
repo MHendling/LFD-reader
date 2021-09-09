@@ -30,6 +30,7 @@ html, body{
 }
 
 #capture--frame{
+  position: fixed;
   text-align:center;
   width: 50%;
   height: 60%;
