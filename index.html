@@ -14,10 +14,12 @@
 <body>
     <!-- Camera -->
     <main id="camera">
-        <svg id="camera--mask" style="fill:none;">
+        
         
             <!-- Camera view -->
-            <video id="camera--view" autoplay playsinline></video>
+            <video id="camera--view" autoplay playsinline>
+            <svg id="camera--mask" style="fill:none;"/>
+            </video>
         
             <!-- Camera sensor -->
             <canvas id="camera--sensor"></canvas>
@@ -25,7 +27,7 @@
             <!-- Camera output -->
             <!-- using //:0 as the source will prevent the empty image icon from showing without the browser showing a security warning -->
             <img src="//:0" alt="" id="camera--output">            
-        </svg>
+        
         
         <svg id="capture--frame">
             <rect width="100%" height="100%" style="fill:grey;fill-opacity:0.2;stroke-width:3;stroke:rgb(0,255,0)" />
