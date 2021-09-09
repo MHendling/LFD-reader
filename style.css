@@ -9,8 +9,9 @@ html, body{
   padding: 0;
   height: 100%;
   width: 100%;
-  background: blue;
+  background: grey;
   position: fixed;
+  fill-opacity: 0.5;
 }
 
 #camera, #camera--view, #camera--sensor, #camera--output{
