@@ -14,19 +14,22 @@
 <body>
     <!-- Camera -->
     <main id="camera">
+        <svg id="camera--mask">
         
-        <!-- Camera view -->
-        <video id="camera--view" autoplay playsinline></video>
+            <!-- Camera view -->
+            <video id="camera--view" autoplay playsinline></video>
         
-        <!-- Camera sensor -->
-        <canvas id="camera--sensor"></canvas>
+            <!-- Camera sensor -->
+            <canvas id="camera--sensor"></canvas>
         
-        <!-- Camera output -->
-        <!-- using //:0 as the source will prevent the empty image icon from showing without the browser showing a security warning -->
-        <img src="//:0" alt="" id="camera--output">
+            <!-- Camera output -->
+            <!-- using //:0 as the source will prevent the empty image icon from showing without the browser showing a security warning -->
+            <img src="//:0" alt="" id="camera--output">
         
-        <svg class="clip-me" id="capture--frame">
-            <!--rect class="clip-me" width="100%" height="100%" style="fill:none;stroke-width:3;stroke:rgb(0,255,0)" / -->
+            <svg class="clip-me" id="capture--frame">
+                <!--rect class="clip-me" width="100%" height="100%" style="fill:none;stroke-width:3;stroke:rgb(0,255,0)" / -->
+            </svg>
+            
         </svg>
         
         <!-- Camera trigger -->
