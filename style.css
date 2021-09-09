@@ -9,9 +9,6 @@ html, body{
   padding: 0;
   height: 100%;
   width: 100%;
-  /*background: grey;*/
-  position: fixed;
-  opacity: 0.2;
 }
 
 #camera, #camera--view, #camera--sensor, #camera--output{
@@ -48,10 +45,6 @@ html, body{
   width: 30%;
   height: 50%;
 }
-
-/*.clip-me{
-  clip-path: inset(20% 40% 20% 40%);
-}*/
 
 .taken{
     height: 100px!important;
