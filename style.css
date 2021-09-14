@@ -37,7 +37,7 @@ html, body{
     left: calc(50% - 100px);
 }
 
-#clipPath{
+#clippath{
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);*/
