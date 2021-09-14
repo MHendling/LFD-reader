@@ -29,8 +29,15 @@
         <!-- svg id="camera--mask">
             <rect width="100%" height="100%" style="fill:grey;fill-opacity:0.5;stroke-width:3;stroke:rgb(0,255,0)" />
         </svg -->
+        
+        <defs>
+            <clipPath id="clipPath">
+                <rect width="30%" height="50%" />
+            </clipPath>
+        </defs>
+        
         <svg id="capture--frame">
-            <rect width="100%" height="100%" style="fill:grey;fill-opacity:0.5;stroke-width:3;stroke:rgb(0,255,0)" />
+            <rect width="100%" height="100%" style="fill:grey;fill-opacity:0.5;stroke:none" clip-path: url(#clipPath);/>
         </svg>
         
         <!-- Camera trigger -->
