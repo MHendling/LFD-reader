@@ -16,8 +16,15 @@ html, body{
     height: 100%;
     width: 100%;
     object-fit: cover;
-    -webkit-clip-path: inset(5% 28% 15% 35%); 
-    clip-path: inset(5% 28% 15% 35%); 
+    /*-webkit-clip-path: inset(5% 28% 15% 35%); 
+    clip-path: inset(5% 28% 15% 35%); */
+}
+
+#clip {
+  clip-path: polygon(0% 0%, 0% 100%, 25% 100%, 25% 25%, 75% 25%, 75% 75%, 25% 75%, 25% 100%, 100% 100%, 100% 0%);
+  position: absolute;
+  background: #fff;
+  opacity: 0.8;
 }
 
 /*#camera--view, #camera--sensor, #camera--output{
