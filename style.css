@@ -15,7 +15,7 @@ html, body{
     position: fixed;
     height: 100%;
     width: 100%;
-    /*object-fit: cover;*/
+    object-fit: cover;
     -webkit-clip-path: inset(5% 28% 15% 35%); 
     clip-path: inset(5% 28% 15% 35%); 
 }
