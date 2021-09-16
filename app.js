@@ -5,7 +5,7 @@ const cameraView = document.querySelector("#camera--view"),
     cameraOutput = document.querySelector("#camera--output"),
     cameraSensor = document.querySelector("#camera--sensor"),
     cameraTrigger = document.querySelector("#camera--trigger")
-
+    cameraFrame = document.querySelector("#capture--frame")
 // Access the device camera and stream to cameraView
 function cameraStart() {
     navigator.mediaDevices
@@ -21,7 +21,11 @@ function cameraStart() {
 // Take a picture when cameraTrigger is tapped
 cameraTrigger.onclick = function() {
     cameraSensor.width = cameraView.videoWidth;
+    console.log(cameraSensor.width)
     cameraSensor.height = cameraView.videoHeight;
+    console.log(cameraSensor.height)
+    console.log(cameraFrame.offsetWidth)
+    console.log(cameraFrame.offsetHeight)
     cameraSensor.getContext("2d").drawImage(cameraView, 0, 0);
     cameraOutput.src = cameraSensor.toDataURL("image/webp");
     cameraOutput.classList.add("taken");
