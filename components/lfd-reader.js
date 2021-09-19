@@ -16,8 +16,6 @@ const LfdReader = () => {
     const [mediaStream, setMediaStream] = useState(null);
     const [canvasWidth, setCanvasWidth] = useState(0);
     const [canvasHeight, setCanvasHeight] = useState(0);
-    const [cameraInitializing, setCameraInitializing] = useState(true);
-    const [cameraInitialized, setCameraInitialized] = useState(false);
 
     /* We set the correct canvas width after everything is drawn */
     useEffect(() => {
@@ -25,21 +23,18 @@ const LfdReader = () => {
         setCanvasHeight(containerRef.current?.clientHeight);
     }, [containerRef.current]);
 
-    /* If not yet initialized, the camera will try to start streaming
-    *
-    * (hopefully, couldnt test that <3)
-    *  */
 
-
+    /* Stream the video output to our component state */
     useEffect(() => {
         async function enableStream() {
             try {
-                const stream = await navigator.mediaDevices.getUserMedia({video: {facingMode: "environment"}, audio: false});
+                const stream = await navigator.mediaDevices.getUserMedia({
+                    video: {facingMode: "environment"},
+                    audio: false
+                });
                 setMediaStream(stream);
-                setCameraInitialized(true);
-                setCameraInitializing(false);
-            } catch(err) {
-                // Removed for brevity
+            } catch (err) {
+                // Todo: add proper error display
             }
         }
 
@@ -52,24 +47,7 @@ const LfdReader = () => {
                 });
             }
         }
-    }, [mediaStream, setCameraInitializing]);
-
-    // useEffect(() => {
-    //     cameraInitializing &&
-    //     navigator.mediaDevices
-    //         .getUserMedia({video: {facingMode: "environment"}, audio: false})
-    //         .then(function (stream) {
-    //             // const track = stream.getTracks()[0]; // unused?
-    //             cameraViewRef.srcObject = stream;
-    //             setCameraInitialized(true);
-    //             setCameraInitializing(false);
-    //         })
-    //         .catch(function (error) {
-    //             console.error("Oops. Something is broken.", error);
-    //             setCameraInitialized(false);
-    //             setCameraInitializing(false);
-    //         });
-    // }, [cameraInitializing]);
+    }, [mediaStream]);
 
     /* Get the image data from our camera sensor and write it into the camera output */
     const handleCameraTrigger = useCallback(() => {
@@ -78,14 +56,10 @@ const LfdReader = () => {
     }, []);
 
     /* If the camera was not successfully initialized, display this error message */
-    if (!cameraInitialized) {
+    if (!mediaStream) {
         return (
             <div style={{textAlign: 'center'}}>
                 <h2>Camera permissions not set.</h2>
-
-                <button className={styles.button} onClick={() => setCameraInitializing(true)}>
-                    Retry
-                </button>
             </div>
         )
     }
@@ -99,7 +73,7 @@ const LfdReader = () => {
         <main id="camera" className={styles.camera} ref={containerRef}>
 
             {/*Camera View*/}
-            <video id="camera--view" className={styles.cameraView} autoPlay playsInline ref={cameraViewRef} />
+            <video id="camera--view" className={styles.cameraView} autoPlay playsInline ref={cameraViewRef}/>
 
             {/*Camera sensor*/}
             <canvas id="camera--sensor"

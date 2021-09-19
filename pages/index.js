@@ -15,7 +15,7 @@ export default function Home() {
 
       <main className={styles.main}>
           <h1 className={styles.title}>
-              AIT LFD Reader Demo
+              LFD Reader Demo
           </h1>
 
           <Link href="reader" style={{marginTop: "2rem"}} >
