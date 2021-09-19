@@ -1,5 +1,7 @@
 import Head from 'next/head'
 import Image from 'next/image'
+import Link from 'next/link'
+
 import styles from '../styles/Home.module.css'
 
 export default function Home() {
@@ -16,9 +18,9 @@ export default function Home() {
               AIT LFD Reader Demo
           </h1>
 
-          <a href="/reader" style={{marginTop: "2rem"}}>
+          <Link href="reader" style={{marginTop: "2rem"}} >
               <img src="http://placekitten.com/300"/>
-          </a>
+          </Link>
       </main>
 
       <footer className={styles.footer}>
