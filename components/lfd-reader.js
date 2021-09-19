@@ -13,6 +13,7 @@ const LfdReader = () => {
     const [cameraOutput, setCameraOutput] = useState('//:0)');
     {/* Note to cameraOutput: using //:0 as the source will prevent the empty image icon from showing without the browser showing a security warning */
     }
+    const [mediaStream, setMediaStream] = useState(null);
     const [canvasWidth, setCanvasWidth] = useState(0);
     const [canvasHeight, setCanvasHeight] = useState(0);
     const [cameraInitializing, setCameraInitializing] = useState(true);
@@ -28,22 +29,47 @@ const LfdReader = () => {
     *
     * (hopefully, couldnt test that <3)
     *  */
+
+
     useEffect(() => {
-        cameraInitializing &&
-        navigator.mediaDevices
-            .getUserMedia({video: {facingMode: "environment"}, audio: false})
-            .then(function (stream) {
-                // const track = stream.getTracks()[0]; // unused?
-                cameraViewRef.srcObject = stream;
+        async function enableStream() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({video: {facingMode: "environment"}, audio: false});
+                setMediaStream(stream);
                 setCameraInitialized(true);
                 setCameraInitializing(false);
-            })
-            .catch(function (error) {
-                console.error("Oops. Something is broken.", error);
-                setCameraInitialized(false);
-                setCameraInitializing(false);
-            });
-    }, [cameraInitializing]);
+            } catch(err) {
+                // Removed for brevity
+            }
+        }
+
+        if (!mediaStream) {
+            enableStream();
+        } else {
+            return function cleanup() {
+                mediaStream.getTracks().forEach(track => {
+                    track.stop();
+                });
+            }
+        }
+    }, [mediaStream, setCameraInitializing]);
+
+    // useEffect(() => {
+    //     cameraInitializing &&
+    //     navigator.mediaDevices
+    //         .getUserMedia({video: {facingMode: "environment"}, audio: false})
+    //         .then(function (stream) {
+    //             // const track = stream.getTracks()[0]; // unused?
+    //             cameraViewRef.srcObject = stream;
+    //             setCameraInitialized(true);
+    //             setCameraInitializing(false);
+    //         })
+    //         .catch(function (error) {
+    //             console.error("Oops. Something is broken.", error);
+    //             setCameraInitialized(false);
+    //             setCameraInitializing(false);
+    //         });
+    // }, [cameraInitializing]);
 
     /* Get the image data from our camera sensor and write it into the camera output */
     const handleCameraTrigger = useCallback(() => {
@@ -86,7 +112,7 @@ const LfdReader = () => {
             </svg>
 
             {/*Camera trigger */}
-            <button id="camera--trigger" className={styles.cameraTrigger} onClick={handleCameraTrigger}>Take a picture
+            <button id="camera--trigger" className={styles.button} onClick={handleCameraTrigger}>Take a picture
             </button>
 
         </main>
