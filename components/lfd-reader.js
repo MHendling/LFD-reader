@@ -90,12 +90,16 @@ const LfdReader = () => {
         )
     }
 
+    if (mediaStream && cameraViewRef.current && !cameraViewRef.current.srcObject) {
+        cameraViewRef.current.srcObject = mediaStream;
+    }
+
     /* Otherwise return the main component */
     return (
         <main id="camera" className={styles.camera} ref={containerRef}>
 
             {/*Camera View*/}
-            <video id="camera--view" className={styles.cameraView} autoPlay playsInline ref={cameraViewRef}/>
+            <video id="camera--view" className={styles.cameraView} autoPlay playsInline ref={cameraViewRef} />
 
             {/*Camera sensor*/}
             <canvas id="camera--sensor"
