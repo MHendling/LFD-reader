@@ -21,8 +21,8 @@
   <component name="ChangeListManager">
     <list default="true" id="759c125c-c5df-48ed-b89d-d57c0eba7fc4" name="Default Changelist" comment="More hook work">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/lfd-reader.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/lfd-reader.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,6 +40,7 @@
   <component name="PropertiesComponent">
     <property name="ASKED_MARK_IGNORED_FILES_AS_EXCLUDED" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -54,6 +55,7 @@
       <option name="presentableId" value="Default" />
       <updated>1632068474053</updated>
       <workItem from="1632068475182" duration="1973000" />
+      <workItem from="1632128629655" duration="1464000" />
     </task>
     <task id="LOCAL-00001" summary="Fix link bug on index.js">
       <created>1632068746105</created>
@@ -92,29 +94,12 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Fix link bug on index.js" />
     <MESSAGE value="Try different hook for capturing datas" />
     <MESSAGE value="More hook work" />
     <option name="LAST_COMMIT_MESSAGE" value="More hook work" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="270" y="81" key="CommitChangelistDialog2" timestamp="1632070153372">
-      <screen x="0" y="0" width="2560" height="1040" />
-    </state>
-    <state x="270" y="81" key="CommitChangelistDialog2/0.0.2560.1040@0.0.2560.1040" timestamp="1632070153372" />
-    <state x="237" y="246" key="Vcs.Push.Dialog.v2" timestamp="1632070196977">
-      <screen x="0" y="0" width="2560" height="1040" />
-    </state>
-    <state x="237" y="246" key="Vcs.Push.Dialog.v2/0.0.2560.1040@0.0.2560.1040" timestamp="1632070196977" />
-    <state x="301" y="239" key="run.anything.popup" timestamp="1632069373229">
-      <screen x="0" y="0" width="2560" height="1040" />
-    </state>
-    <state x="301" y="239" key="run.anything.popup/0.0.2560.1040@0.0.2560.1040" timestamp="1632069373229" />
-    <state x="308" y="228" width="672" height="678" key="search.everywhere.popup" timestamp="1632070099440">
-      <screen x="0" y="0" width="2560" height="1040" />
-    </state>
-    <state x="308" y="228" width="672" height="678" key="search.everywhere.popup/0.0.2560.1040@0.0.2560.1040" timestamp="1632070099440" />
   </component>
 </project>
