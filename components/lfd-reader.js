@@ -82,6 +82,10 @@ const LfdReader = () => {
                 <rect width="100%" height="100%"/>
             </svg>
 
+            <svg id="capture--border" className={styles.captureBorder}>
+                <rect width="6%" height="10%"/>
+            </svg>
+
 
             {/*Camera output */}
             {cameraOutput && <img src={cameraOutput} alt="" id="camera--output"
