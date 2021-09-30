@@ -30,20 +30,14 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="759c125c-c5df-48ed-b89d-d57c0eba7fc4" name="Default Changelist" comment="More hook work">
-      <change afterPath="$PROJECT_DIR$/components/analyzer.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/components/analyzer.module.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/components/button.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/components/button.module.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pages/api/analyzer.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pages/test.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/rocket.gif" afterDir="false" />
+    <list default="true" id="759c125c-c5df-48ed-b89d-d57c0eba7fc4" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/hello.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/lfd-reader.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/lfd-reader.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/lfd-reader.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/components/lfd-reader.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/analyzer.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/analyzer.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/api/analyzer.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/api/analyzer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/test.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/test.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,29 +94,18 @@
     <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\IntelliJ IDEA 2020.2.3\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Code\ait\lfd" />
+      <recent name="C:\Code\ait\lfd\public" />
+      <recent name="C:\Users\HendlingM\Github\lfd\certificates" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Code\ait\lfd\public" />
       <recent name="C:\Code\ait\lfd\pages" />
       <recent name="C:\Code\ait\lfd\components" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\HendlingM\Github\lfd\certificates" />
-    </key>
   </component>
-  <component name="RunManager">
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-  </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="false" />
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -140,6 +123,7 @@
       <workItem from="1632912952635" duration="60000" />
       <workItem from="1632940307974" duration="2103000" />
       <workItem from="1632997714737" duration="305000" />
+      <workItem from="1633021841146" duration="4544000" />
     </task>
     <task id="LOCAL-00001" summary="Fix link bug on index.js">
       <created>1632068746105</created>
@@ -176,11 +160,18 @@
       <option name="project" value="LOCAL" />
       <updated>1632942408216</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary=":*">
+      <created>1633018129276</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1633018129276</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="2" />
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -199,13 +190,18 @@
     <MESSAGE value="Try different hook for capturing datas" />
     <MESSAGE value="More hook work" />
     <MESSAGE value="wip" />
-    <option name="LAST_COMMIT_MESSAGE" value="wip" />
+    <MESSAGE value=":*" />
+    <option name="LAST_COMMIT_MESSAGE" value=":*" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="704" y="129" width="1090" height="818" key="DiffContextDialog" timestamp="1633013355915">
+    <state x="549" y="77" key="CommitChangelistDialog2" timestamp="1633018128931">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state x="704" y="129" width="1090" height="818" key="DiffContextDialog/0.0.2560.1040@0.0.2560.1040" timestamp="1633013355915" />
+    <state x="549" y="77" key="CommitChangelistDialog2/0.0.2560.1040@0.0.2560.1040" timestamp="1633018128931" />
+    <state x="261" y="114" width="2296" height="880" key="DiffContextDialog" timestamp="1633026322206">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state x="261" y="114" width="2296" height="880" key="DiffContextDialog/0.0.2560.1040@0.0.2560.1040" timestamp="1633026322206" />
     <state x="217" y="103" key="MergeDialog" timestamp="1633012859868">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
@@ -214,6 +210,14 @@
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state x="750" y="182" key="SettingsEditor/0.0.2560.1040@0.0.2560.1040" timestamp="1633013872575" />
+    <state x="516" y="241" key="Vcs.Push.Dialog.v2" timestamp="1633018133547">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state x="516" y="241" key="Vcs.Push.Dialog.v2/0.0.2560.1040@0.0.2560.1040" timestamp="1633018133547" />
+    <state x="92" y="92" width="2376" height="856" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1633027536388">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state x="92" y="92" width="2376" height="856" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.2560.1040@0.0.2560.1040" timestamp="1633027536388" />
     <state x="1066" y="451" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1632945989510">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
@@ -226,5 +230,9 @@
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state x="1028" y="250" key="git4idea.branch.GitSmartOperationDialog/0.0.2560.1040@0.0.2560.1040" timestamp="1633012838921" />
+    <state x="943" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1633027837769">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state x="943" y="225" width="672" height="678" key="search.everywhere.popup/0.0.2560.1040@0.0.2560.1040" timestamp="1633027837769" />
   </component>
 </project>

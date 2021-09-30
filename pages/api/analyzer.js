@@ -1,24 +1,26 @@
+const {spawn} = require('child_process');
+
 export default async function handler(req, res) {
     if (req.method === 'POST') {
 
-        // here should be the call to the PYTHON web api
+        const childPython = await spawn('python', ['hello.py']);
 
-        // https://beeceptor.com/ for easy "real" api testing
-        const serverResponse = await fetch('https://lfdtest.free.beeceptor.com/api/analyzer', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(req.body)
+        childPython.stdout.on('data', (data) => {
+            console.log(`You say goodbye, I say ${data}`)
+            res.status(200).json(JSON.stringify(data.toString()));
         });
 
-        // create your response object
-        const response = { ...serverResponse };
+        childPython.stderr.on('data', (data) => {
+            console.error(`There was an error: ${data}`);
+            res.status(500);
+        });
 
-        // send it back to the page
-        res.status(200).json(response);
+        childPython.on('close', (code) => {
+            console.log(`child process exited with code ${code}`);
+        });
+
     } else {
         // Handle any other HTTP method
-        res.status(200).json({ name: 'John Doe' })
+        res.status(200).json({name: 'John Doe'})
     }
 }
