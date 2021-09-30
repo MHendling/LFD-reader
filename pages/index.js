@@ -3,6 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 import styles from '../styles/Home.module.css'
+import Button from "../components/button";
 
 export default function Home() {
   return (
@@ -18,8 +19,12 @@ export default function Home() {
               LFD Reader Demo
           </h1>
 
-          <Link href="reader" style={{marginTop: "2rem"}} >
-              <img src="http://placekitten.com/300"/>
+          <Link href="reader">
+              <img src="http://placekitten.com/300" style={{marginTop: "1rem", marginBottom: "1rem"}}/>
+          </Link>
+
+          <Link href="test" >
+              <Button>Debug here</Button>
           </Link>
       </main>
 

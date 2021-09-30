@@ -1,6 +1,8 @@
 import React, {useEffect, useCallback, useState, useRef} from 'react'
 
 import styles from './lfd-reader.module.css'
+import Button from "./button";
+import Analyzer from "./analyzer";
 
 const LfdReader = () => {
 
@@ -93,9 +95,7 @@ const LfdReader = () => {
 
 
             {/*Camera trigger */}
-            <button id="camera--trigger" className={styles.button}
-                    onClick={handleCameraTrigger}>Take a picture
-            </button>
+            <Button onClick={handleCameraTrigger} className={styles.triggerButton}>Take a picture</Button>
 
         </main>
     )

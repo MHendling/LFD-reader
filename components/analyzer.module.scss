@@ -1,0 +1,39 @@
+.analyzerContainer {
+  position: fixed;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+
+  //remove that, just for clarifying the DOM!
+  background-color: red;
+  padding: 1em;
+
+  & img.analyzerImage {
+    max-width: 100%;
+  }
+}
+
+.analyzerResults{
+    background-color: #fff;
+    padding: 1em;
+
+  & div {
+  }
+  & img {
+    margin: 0 auto;
+  }
+}
+
+.analyzerButtons {
+  // put the container to the bottom and make it full width
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+
+  // this centers the child elements and puts a gap of 1em in between
+  display: flex;
+  justify-content: center;
+  gap: 1em;
+
+  padding: 0.5em;
+}
