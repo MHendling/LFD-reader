@@ -20,11 +20,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="759c125c-c5df-48ed-b89d-d57c0eba7fc4" name="Default Changelist" comment="wip">
-      <change afterPath="$PROJECT_DIR$/server.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/lfd-reader.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/lfd-reader.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/lfd-reader.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/components/lfd-reader.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,7 +87,8 @@
       <workItem from="1632854071069" duration="3304000" />
       <workItem from="1632911795201" duration="924000" />
       <workItem from="1632912952635" duration="60000" />
-      <workItem from="1632940307974" duration="2026000" />
+      <workItem from="1632940307974" duration="2103000" />
+      <workItem from="1632997714737" duration="305000" />
     </task>
     <task id="LOCAL-00001" summary="Fix link bug on index.js">
       <created>1632068746105</created>
@@ -121,7 +118,14 @@
       <option name="project" value="LOCAL" />
       <updated>1632856303308</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="wip">
+      <created>1632942408216</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1632942408216</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
