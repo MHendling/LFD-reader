@@ -4,8 +4,8 @@
     object-fit: cover;
     width: 100%;
     height: 100%;
-    -webkit-clip-path: polygon(0% 0%, 0% 100%, 47% 100%, 47% 40%, 53% 40%, 53% 50%, 47% 50%, 47% 100%, 100% 100%, 100% 0%);
-    clip-path: polygon(0% 0%, 0% 100%, 47% 100%, 47% 40%, 53% 40%, 53% 50%, 47% 50%, 47% 100%, 100% 100%, 100% 0%);
+    -webkit-clip-path: polygon(0% 0%, 0% 100%, 40% 100%, 40% 25%, 60% 25%, 60% 75%, 40% 75%, 40% 100%, 100% 100%, 100% 0%);
+    clip-path: polygon(0% 0%, 0% 100%, 40% 100%, 40% 25%, 60% 25%, 60% 75%, 40% 75%, 40% 100%, 100% 100%, 100% 0%);
 }
 
 .captureFrame rect {
@@ -29,11 +29,11 @@
     stroke: greenyellow;
     stroke-width: 2px;
 
-    x: 47%;
-    y: 40%;
+    x: 40%;
+    y: 25%;
 
-    width: 6%;
-    height: 10%;
+    width: 20%;
+    height: 50%;
 }
 
 .camera, .cameraView, .cameraSensor, .cameraOutput {
@@ -41,13 +41,6 @@
     height: 100%;
     width: 100%;
     object-fit: cover;
-}
-
-.clip {
-    clip-path: polygon(0% 0%, 0% 100%, 25% 100%, 25% 25%, 75% 25%, 75% 75%, 25% 75%, 25% 100%, 100% 100%, 100% 0%);
-    position: absolute;
-    background: #fff;
-    opacity: 0.8;
 }
 
 /*#camera--view, #camera--sensor, #camera--output{
@@ -60,13 +53,13 @@
     left: calc(50% - 100px);
 }
 
-/*.clippath{*/
-/*    top: 50%;*/
-/*    left: 50%;*/
-/*    transform: translate(-50%, -50%);*!*/
-/*width: 30%;*/
-/*    height: 80%;*/
-/*}*/
+.flashButton{
+    position: fixed;
+    background: none;
+    border: none;
+    top: 10px;
+    right: 5px;
+}
 
 .taken {
     height: 100px !important;

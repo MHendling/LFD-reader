@@ -12,7 +12,7 @@ const Analyzer = ({imageData}) => {
     const [result, setResult] = useState(null);
     const [transmitting, setTransmitting] = useState(false);
 
-    const [crop, setCrop] = useState({aspect: 16 / 9});
+    const [crop, setCrop] = useState({aspect: 4 / 10});
 
     const handleSubmit = useCallback(async () => {
         setTransmitting(true);

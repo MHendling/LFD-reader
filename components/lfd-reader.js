@@ -3,6 +3,7 @@ import React, {useEffect, useCallback, useState, useRef} from 'react'
 import styles from './lfd-reader.module.css'
 import Button from "./button";
 import Analyzer from "./analyzer";
+import Image from "next/image";
 
 const LfdReader = () => {
 
@@ -16,6 +17,7 @@ const LfdReader = () => {
     const [mediaStream, setMediaStream] = useState(null)
     const [canvasWidth, setCanvasWidth] = useState(0)
     const [canvasHeight, setCanvasHeight] = useState(0)
+    const [torchButton, setTorchButton] = useState("/flash-off.svg")
 
     /* We set the correct canvas width after everything is drawn */
     useEffect(() => {
@@ -33,6 +35,13 @@ const LfdReader = () => {
                     audio: false,
                 });
                 console.log('got stream')
+                if (navigator?.mediaDevices?.getSupportedConstraints().hasOwnProperty("torch"))
+                {
+                    const track = stream.getVideoTracks()[0];
+                    track.applyConstraints({
+                         advanced: [{torch: false}]
+                    });
+                }
                 setMediaStream(stream)
             } catch (err) {
                 // Todo: add proper error display
@@ -61,10 +70,31 @@ const LfdReader = () => {
         cameraViewRef.current.play();
     }, [cameraViewRef.current]);
 
+    const handleFlash = useCallback(() => {
+        const track = mediaStream?.getVideoTracks()[0];
+
+        if(track?.getSettings().torch == true)
+        {
+            setTorchButton("/flash-off.svg")
+            track.applyConstraints({
+                advanced: [{torch: false}]
+            });
+        }
+        else
+        {
+            setTorchButton("/flash-on.svg")
+            track?.applyConstraints({
+                advanced: [{torch: true}]
+            });
+        }
+
+    }, [mediaStream]);
+
     if (mediaStream && cameraViewRef.current &&
         !cameraViewRef.current.srcObject) {
         cameraViewRef.current.srcObject = mediaStream
     }
+
 
     /* return the main component */
     return (
@@ -92,6 +122,12 @@ const LfdReader = () => {
             {/*Camera output */}
             {cameraOutput && <img src={cameraOutput} alt="" id="camera--output"
                                   className={styles.cameraOutput}/>}
+
+            {/*Flash button */}
+            <button className={styles.flashButton} onClick={handleFlash}>
+                <Image src={torchButton} width={40} height={40}/>
+            </button>
+
 
 
             {/*Camera trigger */}
