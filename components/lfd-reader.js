@@ -63,18 +63,23 @@ const LfdReader = () => {
 
     /* Get the image data from our camera sensor and write it into the camera output */
     const handleCameraTrigger = useCallback(() => {
-        console.log(containerRef.current?.clientWidth)
-        console.log(cameraSensorRef.current?.clientWidth)
-        console.log(cameraViewRef.current.naturalWidth)
-        console.log(canvasWidth)
-        const cropY = canvasHeight * 0.25;
-        const cropX = canvasWidth * 0.4;
-        const cropWidth = canvasWidth * 0.2;
-        const cropHeight = canvasHeight * 0.5;
-        console.log(cropY, cropX, cropWidth, cropHeight)
-        cameraSensorRef.current.getContext('2d').drawImage(cameraViewRef.current, canvasWidth * 0.6, canvasHeight*0.25, cropWidth, cropHeight, cropX, cropY, cropWidth, cropHeight)
+        const track = mediaStream.getTracks()[0];
+        const streamWidth = track.getSettings().width;
+        const streamHeight = track.getSettings().height;
+
+        const cropStreamX = streamWidth * 0.4;
+        const cropStreamY = streamHeight * 0.25;
+        const cropStreamWidth = streamWidth * 0.2;
+        const cropStreamHeight = streamHeight * 0.5;
+
+        const cropCanvasX = canvasWidth * 0.4;
+        const cropCanvasY = canvasHeight * 0.25;
+        const cropCanvasWidth = canvasWidth * 0.2;
+        const cropCanvasHeight = canvasHeight * 0.5;
+
+        cameraSensorRef.current.getContext('2d').drawImage(cameraViewRef.current, cropStreamX, cropStreamY, cropStreamWidth, cropStreamHeight, cropCanvasX, cropCanvasY, cropCanvasWidth, cropCanvasHeight)
         setCameraOutput(cameraSensorRef.current.toDataURL('image/webp'))
-    }, [cameraSensorRef.current])
+    }, [cameraSensorRef.current, mediaStream])
 
     const handleCanPlay = useCallback(() => {
         cameraViewRef.current.play();
