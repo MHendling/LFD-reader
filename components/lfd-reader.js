@@ -21,6 +21,7 @@ const LfdReader = () => {
 
     /* We set the correct canvas width after everything is drawn */
     useEffect(() => {
+        console.log(containerRef.current?.clientWidth)
         setCanvasWidth(containerRef.current?.clientWidth)
         setCanvasHeight(containerRef.current?.clientHeight)
     }, [containerRef.current])
@@ -62,7 +63,16 @@ const LfdReader = () => {
 
     /* Get the image data from our camera sensor and write it into the camera output */
     const handleCameraTrigger = useCallback(() => {
-        cameraSensorRef.current.getContext('2d').drawImage(cameraViewRef.current, 0, 0)
+        console.log(containerRef.current?.clientWidth)
+        console.log(cameraSensorRef.current?.clientWidth)
+        console.log(cameraViewRef.current.naturalWidth)
+        console.log(canvasWidth)
+        const cropY = canvasHeight * 0.25;
+        const cropX = canvasWidth * 0.4;
+        const cropWidth = canvasWidth * 0.2;
+        const cropHeight = canvasHeight * 0.5;
+        console.log(cropY, cropX, cropWidth, cropHeight)
+        cameraSensorRef.current.getContext('2d').drawImage(cameraViewRef.current, canvasWidth * 0.6, canvasHeight*0.25, cropWidth, cropHeight, cropX, cropY, cropWidth, cropHeight)
         setCameraOutput(cameraSensorRef.current.toDataURL('image/webp'))
     }, [cameraSensorRef.current])
 
@@ -115,7 +125,7 @@ const LfdReader = () => {
             </svg>
 
             <svg id="capture--border" className={styles.captureBorder}>
-                <rect width="6%" height="10%"/>
+                <rect width="100%" height="100%"/>
             </svg>
 
 
