@@ -22,6 +22,7 @@ const LfdReader = () => {
     /* We set the correct canvas width after everything is drawn */
     useEffect(() => {
         console.log(containerRef.current?.clientWidth)
+        console.log(containerRef.current?.clientHeight)
         setCanvasWidth(containerRef.current?.clientWidth)
         setCanvasHeight(containerRef.current?.clientHeight)
     }, [containerRef.current])
@@ -32,7 +33,9 @@ const LfdReader = () => {
             console.log('in enableStream')
             try {
                 const stream = await navigator?.mediaDevices?.getUserMedia({
-                    video: {facingMode: 'environment'},
+                    video: {
+                        facingMode: 'environment'
+                    },
                     audio: false,
                 });
                 console.log('got stream')
@@ -79,7 +82,7 @@ const LfdReader = () => {
 
         cameraSensorRef.current.getContext('2d').drawImage(cameraViewRef.current, cropStreamX, cropStreamY, cropStreamWidth, cropStreamHeight, cropCanvasX, cropCanvasY, cropCanvasWidth, cropCanvasHeight)
         setCameraOutput(cameraSensorRef.current.toDataURL('image/webp'))
-    }, [cameraSensorRef.current, mediaStream])
+    }, [cameraSensorRef.current, mediaStream, cameraViewRef.current])
 
     const handleCanPlay = useCallback(() => {
         cameraViewRef.current.play();
