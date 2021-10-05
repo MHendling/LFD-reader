@@ -7,7 +7,7 @@ import Button from "./button";
 import 'react-image-crop/dist/ReactCrop.css';
 import styles from './analyzer.module.scss'
 
-const Analyzer = ({imageData}) => {
+const Analyzer = ({imageData, onCancel}) => {
 
     const [result, setResult] = useState(null);
     const [transmitting, setTransmitting] = useState(false);
@@ -36,6 +36,7 @@ const Analyzer = ({imageData}) => {
         setResult(null);
 
         // we basically want to exit here
+        onCancel();
     }, []);
 
     return (
@@ -56,7 +57,7 @@ const Analyzer = ({imageData}) => {
 
             <div className={styles.analyzerButtons}>
                 <Button onClick={handleCancel}>Cancel</Button>
-                <Button disabled={transmitting} onClick={handleSubmit}>Send to server</Button>
+                <Button disabled={transmitting} onClick={handleSubmit}>Submit</Button>
             </div>
         </div>
     )

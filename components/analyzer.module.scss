@@ -6,7 +6,7 @@
 
   //remove that, just for clarifying the DOM!
   background-color: red;
-  padding: 1em;
+  //padding: 1em;
 
   & img.analyzerImage {
     max-width: 100%;
@@ -30,10 +30,9 @@
   bottom: 0;
   width: 100%;
 
-  // this centers the child elements and puts a gap of 1em in between
+  // this centers the child elements and puts a gap of 0.7em in between
   display: flex;
-  justify-content: center;
-  gap: 1em;
+  gap: .7em;
 
-  padding: 0.5em;
+  padding: .7em;
 }
