@@ -47,10 +47,11 @@
     transform: scaleX(-1);
     filter: FlipH;
 }*/
-.triggerButton {
+.triggerButtonContainer{
     position: fixed;
     bottom: 30px;
-    left: calc(50% - 100px);
+    width: 100%;
+    text-align: center;
 }
 
 .flashButton{

@@ -9,12 +9,16 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@blueprintjs/core": "^3.51.0",
+    "@blueprintjs/icons": "^3.30.2",
     "axios": "^0.21.4",
     "classnames": "^2.3.1",
     "next": "11.1.2",
     "react": "17.0.2",
+    "react-cropper": "^2.1.8",
     "react-dom": "17.0.2",
-    "react-image-crop": "^9.0.4"
+    "react-image-crop": "^9.0.4",
+    "react-toastify": "^8.0.3"
   },
   "devDependencies": {
     "@babel/core": "^7.15.5",

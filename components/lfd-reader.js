@@ -1,9 +1,9 @@
 import React, {useEffect, useCallback, useState, useRef} from 'react'
 
 import styles from './lfd-reader.module.css'
-import Button from "./button";
-import Analyzer from "./analyzer";
 import Image from "next/image";
+
+import {Button, Colors, Icon} from "@blueprintjs/core";
 
 const LfdReader = ({onSendImageData}) => {
 
@@ -17,6 +17,7 @@ const LfdReader = ({onSendImageData}) => {
     const [canvasWidth, setCanvasWidth] = useState(0)
     const [canvasHeight, setCanvasHeight] = useState(0)
     const [torchButton, setTorchButton] = useState("/flash-off.svg")
+    const [ flash, setFlash ] = useState(false);
 
     /* We set the correct canvas width after everything is drawn */
     useEffect(() => {
@@ -35,13 +36,13 @@ const LfdReader = ({onSendImageData}) => {
                     },
                     audio: false,
                 });
-                console.log('got stream')
                 if (navigator?.mediaDevices?.getSupportedConstraints().hasOwnProperty("torch"))
                 {
                     const track = stream.getVideoTracks()[0];
                     track.applyConstraints({
                         advanced: [{torch: false}]
                     });
+                    setFlash(false);
                 }
                 setMediaStream(stream)
             } catch (err) {
@@ -100,13 +101,16 @@ const LfdReader = ({onSendImageData}) => {
     const handleFlash = useCallback(() => {
         const track = mediaStream?.getVideoTracks()[0];
 
+        // alert(JSON.stringify(track?.getSettings()));
         if (track?.getSettings().torch === true) {
             setTorchButton("/flash-off.svg")
             track.applyConstraints({
                 advanced: [{torch: false}]
             });
         } else {
-            setTorchButton("/flash-on.svg")
+            // setTorchButton("/flash-on.svg")
+            setFlash(true);
+
             track?.applyConstraints({
                 advanced: [{torch: true}]
             });
@@ -143,13 +147,15 @@ const LfdReader = ({onSendImageData}) => {
                 </svg>
 
                 {/*Flash button */}
-                <button className={styles.flashButton} onClick={handleFlash}>
-                    <Image src={torchButton} width={40} height={40}/>
-                </button>
+                <Button className={styles.flashButton} onClick={handleFlash} minimal>
+                    <Icon icon="lightning" size={48} color={flash ? Colors.GOLD5 : Colors.GRAY3} />
+                </Button>
 
 
                 {/*Camera trigger */}
-                <Button onClick={handleCameraTrigger} className={styles.triggerButton}>Take a picture</Button>
+                <div className={styles.triggerButtonContainer}>
+                    <Button onClick={handleCameraTrigger} icon="camera" intent="primary" large>Take a picture</Button>
+                </div>
 
                </main>
     )

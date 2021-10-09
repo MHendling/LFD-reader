@@ -5,11 +5,12 @@
   height: 100%;
 
   //remove that, just for clarifying the DOM!
-  background-color: red;
-  //padding: 1em;
+  background-color: #aaa;
+  padding:1em;
 
   & img.analyzerImage {
     max-width: 100%;
+    max-height: 80vh;
   }
 }
 
@@ -25,14 +26,11 @@
 }
 
 .analyzerButtons {
-  // put the container to the bottom and make it full width
   position: absolute;
-  bottom: 0;
+  bottom: 30px;
   width: 100%;
 
-  // this centers the child elements and puts a gap of 0.7em in between
   display: flex;
+  justify-content: center;
   gap: .7em;
-
-  padding: .7em;
 }

@@ -1,10 +1,14 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useState, useRef} from 'react';
 import Image from "next/image";
-import ReactCrop from 'react-image-crop';
+import Cropper from 'react-cropper';
 
-import Button from "./button";
+import { ToastContainer, toast } from 'react-toastify';
 
-import 'react-image-crop/dist/ReactCrop.css';
+// import Button from "./button";
+import { Button } from "@blueprintjs/core";
+
+import "cropperjs/dist/cropper.css";
+import 'react-toastify/dist/ReactToastify.css';
 import styles from './analyzer.module.scss'
 
 const Analyzer = ({imageData, onCancel}) => {
@@ -27,38 +31,46 @@ const Analyzer = ({imageData, onCancel}) => {
 
         const responseText = JSON.parse(await response.text());
 
+        toast(responseText, { autoClose: false});
         console.log(responseText)
-        setResult(responseText);
         setTransmitting(false);
     }, []);
 
     const handleCancel = useCallback(() => {
-        setResult(null);
-
-        // we basically want to exit here
         onCancel();
     }, []);
 
+
+    const cropperRef = useRef(null);
+    const onCrop = () => {
+        const imageElement = cropperRef?.current;
+        const cropper = imageElement?.cropper;
+        console.log(cropper.getCroppedCanvas().toDataURL());
+    };
+
     return (
         <div className={styles.analyzerContainer}>
-            <div className={styles.analyzerResults}>
-                {transmitting && <Image src='/rocket.gif' width={64} height={64}/>}
-                {result &&
-                <div>
-                    <h1>Result</h1>
-                    <p>{result}</p>
-                </div>
-                }
-            </div>
-
-            <ReactCrop src={imageData} className={styles.analyzerImage} crop={crop}
-                       onChange={newCrop => setCrop(newCrop)}/>;
-            {/*<img src={imageData} className={styles.analyzerImage} />*/}
+            <Cropper
+                style={{ height: "100%", width: "100%" }}
+                zoomTo={0.5}
+                initialAspectRatio={1/4}
+                src={imageData}
+                viewMode={1}
+                minCropBoxHeight={10}
+                minCropBoxWidth={10}
+                background={false}
+                responsive={true}
+                autoCropArea={1}
+                checkOrientation={false} // https://github.com/fengyuanchen/cropperjs/issues/671
+                guides={true}
+            />
 
             <div className={styles.analyzerButtons}>
-                <Button onClick={handleCancel}>Cancel</Button>
-                <Button disabled={transmitting} onClick={handleSubmit}>Submit</Button>
+                <Button onClick={handleCancel} intent="danger" large icon="delete">Cancel</Button>
+                <Button disabled={transmitting} onClick={handleSubmit} intent="success" icon="send-message" large>Submit</Button>
             </div>
+
+            <ToastContainer />
         </div>
     )
 }
