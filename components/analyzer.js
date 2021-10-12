@@ -34,6 +34,7 @@ const Analyzer = ({imageData, onCancel}) => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(imageData)
+            //body: JSON.stringify("image data")
         });
 
         const responseText = JSON.parse(await response.text());

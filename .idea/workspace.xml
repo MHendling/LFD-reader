@@ -1,18 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="AutoImportSettings">
-    <option name="autoReloadType" value="SELECTIVE" />
-  </component>
   <component name="BranchesTreeState">
     <expand>
       <path>
         <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
         <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="GROUP_NODE:feature" type="e8cecc67:BranchNodeDescriptor" />
       </path>
       <path>
         <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
@@ -24,19 +16,21 @@
         <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
       </path>
     </expand>
-    <select />
+    <select>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="BRANCH:wip-camera-output" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="759c125c-c5df-48ed-b89d-d57c0eba7fc4" name="Default Changelist" comment="wip">
+    <list default="true" id="759c125c-c5df-48ed-b89d-d57c0eba7fc4" name="Default Changelist" comment="wip - change object-fit">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/analyzer.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/analyzer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/analyzer.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/components/analyzer.module.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/lfd-reader.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/lfd-reader.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/reader.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/reader.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/test.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/AIT_logo-1.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/styles/Home.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/styles/Home.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/api/analyzer.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/api/analyzer.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,7 +50,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="broken-git-oh-no" />
+        <entry key="$PROJECT_DIR$" value="develop" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -86,10 +80,10 @@
     <property name="jdk.selected.JAVA_MODULE" value="1.8" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/public" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Global Libraries" />
+    <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="Errors" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\IntelliJ IDEA 2020.2.3\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
   </component>
   <component name="RecentsManager">
@@ -104,7 +98,7 @@
       <recent name="C:\Users\HendlingM\Github\lfd\certificates" />
     </key>
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SpellCheckerSettings" BundledDictionaries="0" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="application-level" UseSingleDictionary="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -128,9 +122,11 @@
       <workItem from="1633199314675" duration="3411000" />
       <workItem from="1633374048809" duration="4334000" />
       <workItem from="1633697982830" duration="45000" />
-      <workItem from="1633780454242" duration="2638000" />
-      <workItem from="1633780006621" duration="6313000" />
-      <workItem from="1633863007656" duration="5272000" />
+      <workItem from="1633780454242" duration="3270000" />
+      <workItem from="1633865359562" duration="2482000" />
+      <workItem from="1633867875146" duration="33000" />
+      <workItem from="1633892600961" duration="191000" />
+      <workItem from="1633892813981" duration="3135000" />
     </task>
     <task id="LOCAL-00001" summary="Fix link bug on index.js">
       <created>1632068746105</created>
@@ -195,11 +191,25 @@
       <option name="project" value="LOCAL" />
       <updated>1633202646488</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="wip - change object-fit">
+      <created>1633378376620</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1633378376620</updated>
+    </task>
+    <task id="LOCAL-00011" summary="wip - change rect size">
+      <created>1633783159066</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1633783159066</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
+    <option name="version" value="2" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -212,7 +222,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="origin/develop" />
+                        <option value="wip-camera-output" />
                       </list>
                     </value>
                   </entry>
@@ -226,43 +236,43 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
-    <option name="CHECK_NEW_TODO" value="false" />
     <MESSAGE value="Fix link bug on index.js" />
     <MESSAGE value="Try different hook for capturing datas" />
     <MESSAGE value="More hook work" />
     <MESSAGE value=":*" />
-    <MESSAGE value="wip" />
     <MESSAGE value="add flash, changed crop aspect" />
     <MESSAGE value="wip" />
-    <option name="LAST_COMMIT_MESSAGE" value="wip" />
+    <MESSAGE value="wip - change object-fit" />
+    <MESSAGE value="wip - change rect size" />
+    <option name="LAST_COMMIT_MESSAGE" value="wip - change rect size" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="549" y="77" key="CommitChangelistDialog2" timestamp="1633786354186">
+    <state x="249" y="0" key="#Project_Structure" timestamp="1633892886874">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="249" y="0" key="#Project_Structure/0.0.1536.824@0.0.1536.824" timestamp="1633892886874" />
+    <state x="549" y="77" key="CommitChangelistDialog2" timestamp="1633018128931">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state x="549" y="77" key="CommitChangelistDialog2/0.0.2560.1040@0.0.2560.1040" timestamp="1633786354186" />
-    <state x="261" y="115" width="2296" height="879" key="DiffContextDialog" timestamp="1633871064095">
+    <state x="549" y="77" key="CommitChangelistDialog2/0.0.2560.1040@0.0.2560.1040" timestamp="1633018128931" />
+    <state x="261" y="114" width="2296" height="880" key="DiffContextDialog" timestamp="1633026322206">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state x="261" y="115" width="2296" height="879" key="DiffContextDialog/0.0.2560.1040@0.0.2560.1040" timestamp="1633871064095" />
+    <state x="261" y="114" width="2296" height="880" key="DiffContextDialog/0.0.2560.1040@0.0.2560.1040" timestamp="1633026322206" />
     <state x="217" y="103" key="MergeDialog" timestamp="1633012859868">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state x="217" y="103" key="MergeDialog/0.0.2560.1040@0.0.2560.1040" timestamp="1633012859868" />
-    <state x="1142" y="222" key="RollbackChangesDialog" timestamp="1633871064785">
-      <screen x="0" y="0" width="2560" height="1040" />
-    </state>
-    <state x="1142" y="222" key="RollbackChangesDialog/0.0.2560.1040@0.0.2560.1040" timestamp="1633871064785" />
-    <state x="750" y="182" key="SettingsEditor" timestamp="1633013872575">
-      <screen x="0" y="0" width="2560" height="1040" />
-    </state>
-    <state x="750" y="182" key="SettingsEditor/0.0.2560.1040@0.0.2560.1040" timestamp="1633013872575" />
-    <state x="310" y="191" key="Vcs.Push.Dialog.v2" timestamp="1633202649777">
+    <state x="450" y="115" key="SettingsEditor" timestamp="1633892793218">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="310" y="191" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1633378380724" />
-    <state x="516" y="241" key="Vcs.Push.Dialog.v2/0.0.2560.1040@0.0.2560.1040" timestamp="1633466090834" />
+    <state x="450" y="115" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1633892793218" />
+    <state x="750" y="182" key="SettingsEditor/0.0.2560.1040@0.0.2560.1040" timestamp="1633013872575" />
+    <state x="310" y="191" key="Vcs.Push.Dialog.v2" timestamp="1633783161255">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="310" y="191" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1633783161255" />
+    <state x="516" y="241" key="Vcs.Push.Dialog.v2/0.0.2560.1040@0.0.2560.1040" timestamp="1633018133547" />
     <state x="92" y="92" width="2376" height="856" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1633027536388">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
@@ -271,17 +281,17 @@
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state x="1066" y="451" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.2560.1040@0.0.2560.1040" timestamp="1632945989510" />
-    <state x="955" y="271" width="587" height="534" key="find.popup" timestamp="1633866217872">
+    <state x="955" y="271" width="587" height="534" key="find.popup" timestamp="1633017614534">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state x="955" y="271" width="587" height="534" key="find.popup/0.0.2560.1040@0.0.2560.1040" timestamp="1633866217872" />
+    <state x="955" y="271" width="587" height="534" key="find.popup/0.0.2560.1040@0.0.2560.1040" timestamp="1633017614534" />
     <state x="1028" y="250" key="git4idea.branch.GitSmartOperationDialog" timestamp="1633012838921">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state x="1028" y="250" key="git4idea.branch.GitSmartOperationDialog/0.0.2560.1040@0.0.2560.1040" timestamp="1633012838921" />
-    <state x="943" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1633868132133">
+    <state x="943" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1633027837769">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state x="943" y="225" width="672" height="678" key="search.everywhere.popup/0.0.2560.1040@0.0.2560.1040" timestamp="1633868132133" />
+    <state x="943" y="225" width="672" height="678" key="search.everywhere.popup/0.0.2560.1040@0.0.2560.1040" timestamp="1633027837769" />
   </component>
 </project>
