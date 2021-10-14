@@ -36,10 +36,6 @@ const LfdReader = ({onSendImageData}) => {
                     audio: false,
                 });
                 if (await navigator?.mediaDevices?.getSupportedConstraints()?.torch) {
-                    const track = stream.getVideoTracks()[0];
-                    await track.applyConstraints({
-                        advanced: [{torch: false}]
-                    });
                     setFlash(false);
                     setHasFlashSupport(true);
                 }
@@ -108,10 +104,10 @@ const LfdReader = ({onSendImageData}) => {
                 advanced: [{torch: false}]
             });
         } else {
-            setFlash(true);
             await track?.applyConstraints({
                 advanced: [{torch: true}]
             });
+            setFlash(true);
         }
     }, [mediaStream]);
 
