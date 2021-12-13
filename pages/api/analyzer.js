@@ -1,12 +1,12 @@
 const {spawn} = require('child_process');
 
 export default async function handler(req, res) {
-    console.log(req.body);
     if (req.method === 'POST') {
 
         const childPython = await spawn('python', ['lfd_analyzer.py', '-f', req.body.split(',')[1]]);
 
         childPython.stdout.on('data', (data) => {
+            //res.status(200).send(data);
             res.status(200).json(JSON.stringify(data.toString()));
         });
 

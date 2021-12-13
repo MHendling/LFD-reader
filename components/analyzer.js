@@ -19,13 +19,13 @@ const Analyzer = ({imageData, onCancel}) => {
 
     const [crop, setCrop] = useState({aspect: 1 / 5});
 
-    console.log(cropperRef);
+    //console.log(cropperRef);
     const handleSubmit = useCallback(async () => {
         setTransmitting(true);
 
         const imageElement = cropperRef?.current;
         const cropper = imageElement?.cropper;
-        console.log(imageElement, cropper)
+        //console.log(imageElement, cropper)
         const croppedImage = cropper.getCroppedCanvas().toDataURL();
 
         const response = await fetch('/api/analyzer', {
@@ -33,15 +33,15 @@ const Analyzer = ({imageData, onCancel}) => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(imageData)
+            body: JSON.stringify(croppedImage)
             //body: JSON.stringify("image data")
         });
 
         const responseText = JSON.parse(await response.text());
 
-        toast(responseText, {autoClose: false});
-        console.log(responseText)
+        //toast(responseText, {autoClose: false});
         setTransmitting(false);
+        setResult({__html: `${responseText}`});
     }, [cropperRef]);
 
     const handleCancel = useCallback(() => {
@@ -50,7 +50,9 @@ const Analyzer = ({imageData, onCancel}) => {
 
     return (
         <div className={styles.analyzerContainer}>
-            <Cropper
+            {
+                result ? <div><h1>Result start</h1><div dangerouslySetInnerHTML={result} /><p>Result end</p></div>:
+                <Cropper
                 style={{height: "80vh", width: "100%"}}
                 zoomTo={2}
                 initialAspectRatio={1 / 4}
@@ -65,7 +67,7 @@ const Analyzer = ({imageData, onCancel}) => {
                 guides={true}
                 movable={false}
                 ref={cropperRef}
-            />
+            />}
 
             <div className={styles.analyzerButtons}>
                 <Button onClick={handleCancel} intent="danger" large icon="delete" fill>Cancel</Button>
@@ -73,8 +75,10 @@ const Analyzer = ({imageData, onCancel}) => {
                         large fill loading={transmitting}>Submit</Button>
             </div>
 
+
             <ToastContainer/>
         </div>
+
     )
 }
 

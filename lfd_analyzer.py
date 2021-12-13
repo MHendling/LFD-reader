@@ -19,7 +19,7 @@ def stringToRGB(base64_string):
     image = Image.open(BytesIO(imgdata))
     return cv2.cvtColor(np.array(image), cv2.COLOR_BGR2RGB)
 
-im = Image.open(BytesIO(base64.b64decode(results.lfd_image)))
+#im = Image.open(BytesIO(base64.b64decode(results.lfd_image)))
 #im.save('image.png', 'PNG')
 
 def white_balance(img):
@@ -38,6 +38,7 @@ def my_mean(sample):
 img = stringToRGB(results.lfd_image)
 img = white_balance(img)
 img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+cv2.imwrite("test.jpg",img)
 img = cv2.bitwise_not(img)
 rows,cols = img.shape
 x = range(0,rows,1)
@@ -52,4 +53,7 @@ for i in range(rows):
 fig = plt.figure()
 plt.plot(x,y)
 html = mpld3.fig_to_html(fig)
+with open("test.html","a") as testfile:
+    testfile.write(html)
 print(html)
+#print("<p>hello</p>")
