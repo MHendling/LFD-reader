@@ -1,0 +1,12 @@
+.form {
+    display: grid;
+    grid-template-columns: 3em auto;
+    row-gap: 0.5em;
+}
+
+.form button {
+    grid-column: span 2;
+    margin-top: 1.5em;
+    /*sorry for that*/
+    margin-bottom: -1.5em;
+}

@@ -1,0 +1,34 @@
+.dialog {
+    width: 90%;
+}
+
+.dialogHeader {
+    justify-content: space-between;
+}
+
+.currentSettings {
+    display: grid;
+    grid-template-columns: 3em auto;
+    grid-row-gap: 0.1em;
+}
+
+.currentSettings span:nth-child(odd){
+    font-weight: bold;
+}
+
+
+.settings {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.settings select {
+    width: 100%;
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+}
+.settings button {
+    width: 100%;
+    margin-bottom: 1em;
+}

@@ -10,9 +10,13 @@ parser = argparse.ArgumentParser()
 requiredNamed = parser.add_argument_group('required named arguments')
 requiredNamed.add_argument('-f', action='store', dest='lfd_image',
                     help='lfd image', required=True)
+requiredNamed.add_argument('-s', action='store', dest='settings',
+                    help='settings', required=True)
 requiredNamed.add_argument('--version', action='version', version='%(prog)s 1.0')
 
 results = parser.parse_args()
+# we should have results.settings now
+print(results.settings.a)
 
 def stringToRGB(base64_string):
     imgdata = base64.b64decode(str(base64_string))

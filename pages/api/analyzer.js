@@ -3,7 +3,13 @@ const {spawn} = require('child_process');
 export default async function handler(req, res) {
     if (req.method === 'POST') {
 
-        const childPython = await spawn('python', ['lfd_analyzer.py', '-f', req.body.split(',')[1]]);
+        const paramData = req.body;
+
+        const settings = paramData?.settings;
+        const imgData = paramData?.imgData.split(',')[1];
+
+        // TODO: add settings properly to python spawn call
+        const childPython = await spawn('python', ['lfd_analyzer.py', '-f', imgData, '-s', settings]); // <-- add settings here
 
         childPython.stdout.on('data', (data) => {
             //res.status(200).send(data);

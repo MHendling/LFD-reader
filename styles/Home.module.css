@@ -124,4 +124,15 @@
 .welcome {
   width: 100%;
   max-width: 90%;
+
+  display: grid;
+  grid-template-columns: 4em auto;
+}
+
+.welcome h2 {
+  color: #aaa;
+}
+
+.startArea {
+  align-self: center;
 }

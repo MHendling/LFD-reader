@@ -13,6 +13,7 @@
     "@blueprintjs/icons": "^3.30.2",
     "axios": "^0.21.4",
     "classnames": "^2.3.1",
+    "formik": "^2.2.9",
     "next": "11.1.2",
     "react": "17.0.2",
     "react-cropper": "^2.1.8",
