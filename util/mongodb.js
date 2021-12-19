@@ -1,8 +1,5 @@
 import { MongoClient } from 'mongodb'
 
-// FIXME: this is a non working stub from the official mongodb documentation
-// can probably go to the trash, since it can't really work without tweaking around
-
 let uri = process.env.MONGODB_URI
 let dbName = process.env.MONGODB_DB
 
