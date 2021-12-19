@@ -21,12 +21,14 @@ requiredNamed.add_argument('--version', action='version', version='%(prog)s 1.0'
 
 results = parser.parse_args()
 # we should have results.settings now
-print(results.settings)
+#print(results.settings)
 
 def stringToRGB(base64_string):
     imgdata = base64.b64decode(str(base64_string))
+    image_result = open('test.jpg', 'wb') # create a writable image and write the decoding result
+    image_result.write(imgdata)
     image = Image.open(BytesIO(imgdata))
-    return cv2.cvtColor(np.array(image), cv2.COLOR_BGR2RGB)
+    return cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR)
 
 def calibrate(y,a,b,c,d):
     x = c*((((a-d)/(y-d))-1)**(1/b))
@@ -44,8 +46,8 @@ def white_balance(img):
 def my_mean(sample):
     return sum(sample)/len(sample)
 
-img = stringToRGB(results.lfd_image)
-
+img=cv2.imread("test.jpg")
+#img = stringToRGB(results.lfd_image)
 img = white_balance(img)
 img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 img = img.astype(np.uint8)
@@ -65,7 +67,7 @@ for y_pos in y:
 data_matrix = list(zip(x,y_offset))
 data_matrix = pd.DataFrame(data_matrix,columns=["position","intensity"])
 intensities = data_matrix["intensity"]
-indices = find_peaks(intensities, distance=100)[0]
+indices = find_peaks(intensities, distance=20)[0]
 tMin = scipy.signal.argrelmin(intensities.values)[0]
 aucs = []
 
@@ -74,9 +76,11 @@ new_intensity_order = sorted([intensities[i] for i in indices], reverse=True)[0:
 new_indices = [x for x in indices if intensities[x] in new_intensity_order]
 minima = []
 minima_pairs = []
+print(new_indices)
+print(tMin)
 for i in new_indices:
-    left_min = [x for x in tMin if abs(x - i) > 20 and x < i][-1]
-    right_min = [x for x in tMin if abs(x - i) > 20 and x > i][0]
+    left_min = [x for x in tMin if x < i][-1]
+    right_min = [x for x in tMin if x > i][0]
     y = intensities[left_min:right_min]
     minima.append(left_min)
     minima.append(right_min)
@@ -133,10 +137,11 @@ for minima_pair in minima_pairs:
     )
     fig.add_trace(go.Scatter(
         x0=minima_pair[0],
-        y=intensities[minima_pair[0]:minima_pair[1]],
+        y=intensities[minima_pair[0]:(minima_pair[1]+1)],
         fill='toself'
     ))
 
+fig.write_html("new_test.html")
 # convert graph to PNG and encode it
 png = plotly.io.to_image(fig)
 png_base64 = base64.b64encode(png).decode('ascii')
@@ -150,7 +155,7 @@ results = {
 
 }
 
+
 # convert into JSON:
 json_results = json.dumps(results)
-
 print(json_results)

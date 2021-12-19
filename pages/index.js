@@ -8,9 +8,17 @@ import Settings from "../components/settings";
 
 import styles from '../styles/Home.module.css'
 
+const https = require('https');
+const agent = new https.Agent({
+  rejectUnauthorized: false
+});
 
 const fetchCurveFittingSettings = async () => {
-    const curveFittingSettingsQuery = await fetch('http://localhost:3000/api/curve_fitting_settings');
+    const curveFittingSettingsQuery = await fetch('https://localhost:3000/api/curve_fitting_settings',
+    {
+    method: 'GET',
+    agent
+    });
 
     return await curveFittingSettingsQuery.json();
 }
@@ -21,8 +29,9 @@ export default function Home({mongoDbAlive, curveFittingSettings}) {
 
 
     const handleAddSettings = useCallback(async (settings) => {
-        const newSettings = await fetch('http://localhost:3000/api/curve_fitting_settings', {
+        const newSettings = await fetch('https://localhost:3000/api/curve_fitting_settings', {
             method: 'POST',
+            agent,
             body: JSON.stringify(settings)
         });
 
