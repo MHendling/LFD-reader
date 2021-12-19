@@ -30,7 +30,8 @@ export default function Home({mongoDbAlive, curveFittingSettings}) {
         const allSettings = await fetchCurveFittingSettings();
         setAllSettings(allSettings);
 
-        setCurrentSettings(newSettings.json());
+        const newSettingData = await newSettings.json();
+        setCurrentSettings(newSettingData);
     }, []);
 
 
@@ -69,7 +70,14 @@ export default function Home({mongoDbAlive, curveFittingSettings}) {
                         <h2>2</h2>
                     </div>
                     <div className={styles.startArea}>
-                        <Link href="reader">
+                        <Link
+                            href={{
+                                pathname: `/reader`,
+                                query: {
+                                    curveFittingSettings: JSON.stringify(currentSettings)
+                                },
+                            }}
+                        >
                             <Button intent="primary" large fill disabled={currentSettings == null}>Start LFD
                                 reader</Button>
                         </Link>

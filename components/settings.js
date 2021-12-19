@@ -17,14 +17,8 @@ const Settings = (props) => {
     }
 
     const handleSubmitNewSettings = (newSettings) => {
-            // clone our state settings, we never want to manipulate state directly
-            // or js will shoot at you
-            // pew pew pew
-            const clonedSettings = Array.from(settings);
-            clonedSettings.push(newSettings);
-
-            onSubmit(newSettings);
-            handleCloseSettings();
+        onSubmit(newSettings);
+        handleCloseSettings();
     }
 
     return (

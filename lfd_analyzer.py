@@ -21,7 +21,7 @@ requiredNamed.add_argument('--version', action='version', version='%(prog)s 1.0'
 
 results = parser.parse_args()
 # we should have results.settings now
-print(results.settings.a)
+print(results.settings)
 
 def stringToRGB(base64_string):
     imgdata = base64.b64decode(str(base64_string))

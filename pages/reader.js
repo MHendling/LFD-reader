@@ -2,7 +2,7 @@ import React, {useCallback, useState} from 'react';
 import LfdReader from "../components/lfd-reader";
 import Analyzer from "../components/analyzer";
 
-const Reader = () => {
+const Reader = ({curveFittingSettings}) => {
     const [imageData, setImageData] = useState(null);
 
     const handleResetImageData = useCallback(() => setImageData(null), []);
@@ -14,9 +14,17 @@ const Reader = () => {
     return (<>
         {imageData == null ?
             <LfdReader onSendImageData={handleSetImageData}/> :
-            <Analyzer imageData={imageData} onCancel={handleResetImageData}/>
+            <Analyzer imageData={imageData} onCancel={handleResetImageData} curveFittingSettings={curveFittingSettings}/>
         }
     </>)
 }
 
 export default Reader;
+
+export async function getServerSideProps(context) {
+    const { curveFittingSettings } = context.query;
+
+    return {
+        props: {curveFittingSettings},
+    }
+}

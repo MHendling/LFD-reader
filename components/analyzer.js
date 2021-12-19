@@ -10,13 +10,12 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import styles from './analyzer.module.scss'
 
-const Analyzer = ({imageData, onCancel}) => {
+const Analyzer = ({imageData, onCancel, curveFittingSettings}) => {
 
     const cropperRef = useRef(null);
 
     const [result, setResult] = useState(null);
     const [transmitting, setTransmitting] = useState(false);
-    const [settings, setSettings] = useState({a: 1, b: 2, c: 3, d: 4});
 
     const [crop, setCrop] = useState({aspect: 1 / 5});
 
@@ -30,7 +29,7 @@ const Analyzer = ({imageData, onCancel}) => {
         const croppedImage = cropper.getCroppedCanvas().toDataURL();
 
         const paramData = {
-            settings,
+            settings: curveFittingSettings,
             imgData: croppedImage,
         }
 
@@ -40,12 +39,10 @@ const Analyzer = ({imageData, onCancel}) => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(paramData)
-            // body: JSON.stringify(croppedImage)
         });
 
         const responseText = JSON.parse(await response.text());
 
-        //toast(responseText, {autoClose: false});
         setTransmitting(false);
         setResult({__html: `${responseText}`});
     }, [cropperRef]);
