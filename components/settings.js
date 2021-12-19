@@ -6,15 +6,25 @@ import ParameterForm from "./parameterForm";
 import styles from './settings.module.css';
 
 const Settings = (props) => {
-    const {currentSettings, onChange} = props;
-    const [settingsOpen, setSettingsOpen] = useState(false);
-    const [settings, setSettings] = useState([{id: 'Default', a: 1, b: 2, c: 3, d: 4}]);
+    const {settings, currentSettings, onChange, onSubmit} = props;
+    const [formOpen, setFormOpen] = useState(false);
 
-    const handleCloseSettings = () => setSettingsOpen(false);
+    const handleCloseSettings = () => setFormOpen(false);
 
     const handleChangeSettings = (event) => {
         const currentSettings = settings.find(setting => setting.id === event.target.value);
         onChange(currentSettings);
+    }
+
+    const handleSubmitNewSettings = (newSettings) => {
+            // clone our state settings, we never want to manipulate state directly
+            // or js will shoot at you
+            // pew pew pew
+            const clonedSettings = Array.from(settings);
+            clonedSettings.push(newSettings);
+
+            onSubmit(newSettings);
+            handleCloseSettings();
     }
 
     return (
@@ -23,13 +33,13 @@ const Settings = (props) => {
                     value={currentSettings?.id}
                     onChange={handleChangeSettings}>
                 <option disabled defaultValue value="">Please select settings</option>
-                {settings.map((setting) => <option value={setting.id} key={setting.id}>
+                {settings?.map((setting) => <option value={setting.id} key={setting.id}>
                     {setting.id}
                 </option>)}
             </select>
 
             <Button outlined small intent={Intent.SUCCESS} icon="plus"
-                    onClick={() => setSettingsOpen(true)}>
+                    onClick={() => setFormOpen(true)}>
                 Add new setting
             </Button>
 
@@ -52,7 +62,7 @@ const Settings = (props) => {
             </div>
             }
 
-            <Dialog isOpen={settingsOpen} onClose={handleCloseSettings} className={styles.dialog}
+            <Dialog isOpen={formOpen} onClose={handleCloseSettings} className={styles.dialog}
                     canOutsideClickClose={false}
                     canEscapeKeyClose={true}>
                 <div className={classNames(Classes.DIALOG_HEADER, styles.dialogHeader)}>
@@ -60,18 +70,7 @@ const Settings = (props) => {
                     <Button className={Classes.DIALOG_CLOSE_BUTTON} icon="cross"
                             onClick={handleCloseSettings}/></div>
                 <div className={Classes.DIALOG_BODY}>
-                    <ParameterForm onSubmit={(data) => {
-                        // clone our state settings, we never want to manipulate state directly
-                        // or js will shoot at you
-                        // pew pew pew
-                        const clonedSettings = Array.from(settings);
-                        clonedSettings.push(data);
-
-                        setSettings(clonedSettings);
-                        onChange(data);
-
-                        handleCloseSettings();
-                    }}/>
+                    <ParameterForm onSubmit={handleSubmitNewSettings}/>
                 </div>
             </Dialog>
 
