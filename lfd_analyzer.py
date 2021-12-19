@@ -1,10 +1,15 @@
-import base64
-from PIL import Image
-from io import BytesIO
+import json
+import scipy.stats
 import cv2
 import numpy as np
-import matplotlib.pyplot as plt, mpld3
+from scipy.signal import find_peaks
+import pandas as pd
+import plotly.graph_objects as go
+import plotly
+import base64
 import argparse
+from PIL import Image
+from io import BytesIO
 
 parser = argparse.ArgumentParser()
 requiredNamed = parser.add_argument_group('required named arguments')
@@ -23,8 +28,9 @@ def stringToRGB(base64_string):
     image = Image.open(BytesIO(imgdata))
     return cv2.cvtColor(np.array(image), cv2.COLOR_BGR2RGB)
 
-#im = Image.open(BytesIO(base64.b64decode(results.lfd_image)))
-#im.save('image.png', 'PNG')
+def calibrate(y,a,b,c,d):
+    x = c*((((a-d)/(y-d))-1)**(1/b))
+    return x
 
 def white_balance(img):
     result = cv2.cvtColor(img, cv2.COLOR_BGR2LAB)
@@ -38,26 +44,113 @@ def white_balance(img):
 def my_mean(sample):
     return sum(sample)/len(sample)
 
-#img = cv2.imread(r'R:\100_HMD\Team_Stuff\Hendling_Michaela\MobileReadOut\2130-2133-35min.jpg')
 img = stringToRGB(results.lfd_image)
+
 img = white_balance(img)
 img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-cv2.imwrite("test.jpg",img)
+img = img.astype(np.uint8)
+img2 = img
 img = cv2.bitwise_not(img)
 rows,cols = img.shape
 x = range(0,rows,1)
-# for j in range(cols):
-#     y = img[:,j]
-#     plt.plot(x, y)
-# plt.show()
 
 y = []
 for i in range(rows):
     y.append(my_mean(img[i,:]))
-fig = plt.figure()
-plt.plot(x,y)
-html = mpld3.fig_to_html(fig)
-with open("test.html","a") as testfile:
-    testfile.write(html)
-print(html)
-#print("<p>hello</p>")
+
+y_offset = []
+for y_pos in y:
+   y_offset.append(y_pos-min(y))
+
+data_matrix = list(zip(x,y_offset))
+data_matrix = pd.DataFrame(data_matrix,columns=["position","intensity"])
+intensities = data_matrix["intensity"]
+indices = find_peaks(intensities, distance=100)[0]
+tMin = scipy.signal.argrelmin(intensities.values)[0]
+aucs = []
+
+# get two highest peaks
+new_intensity_order = sorted([intensities[i] for i in indices], reverse=True)[0:2]
+new_indices = [x for x in indices if intensities[x] in new_intensity_order]
+minima = []
+minima_pairs = []
+for i in new_indices:
+    left_min = [x for x in tMin if abs(x - i) > 20 and x < i][-1]
+    right_min = [x for x in tMin if abs(x - i) > 20 and x > i][0]
+    y = intensities[left_min:right_min]
+    minima.append(left_min)
+    minima.append(right_min)
+    minima_pairs.append((left_min,right_min))
+    integral = sum(intensities[left_min:right_min])
+    aucs.append(integral)
+
+sum_integral = sum(aucs)
+percentages = []
+for a in aucs:
+    percentage = (a / sum_integral) * 100
+    percentages.append(percentage)
+
+
+fig = go.Figure()
+fig.add_trace(go.Scatter(
+    y=intensities,
+    mode='lines+markers',
+    name='Original Plot'
+))
+
+fig.add_trace(go.Scatter(
+    x=indices,
+    y=[intensities[j] for j in indices],
+    mode='markers',
+    marker=dict(
+        size=8,
+        color='red',
+        symbol='cross'
+    ),
+    name='Detected Peaks'
+))
+fig.add_trace(go.Scatter(
+    x=minima,
+    y=[intensities[j] for j in minima],
+    mode='markers',
+    marker=dict(
+        size=8,
+        color='green',
+        symbol='cross'
+    ),
+    name='Detected Minima'
+))
+
+for minima_pair in minima_pairs:
+    fig.add_shape(type='line',
+                    x0=minima_pair[0],
+                    y0=intensities[minima_pair[0]],
+                    x1=minima_pair[1],
+                    y1=intensities[minima_pair[1]],
+                    line=dict(color='Red',),
+                    xref='x',
+                    yref='y'
+    )
+    fig.add_trace(go.Scatter(
+        x0=minima_pair[0],
+        y=intensities[minima_pair[0]:minima_pair[1]],
+        fill='toself'
+    ))
+
+# convert graph to PNG and encode it
+png = plotly.io.to_image(fig)
+png_base64 = base64.b64encode(png).decode('ascii')
+
+results = {
+    "AUCs": aucs,
+    "Percentages": percentages,
+    "c/t": aucs[1] / aucs[0],
+    "t/c": aucs[0] / aucs[1],
+    "Plot": png_base64
+
+}
+
+# convert into JSON:
+json_results = json.dumps(results)
+
+print(json_results)
