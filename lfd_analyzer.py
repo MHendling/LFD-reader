@@ -11,6 +11,7 @@ import argparse
 from PIL import Image
 from io import BytesIO
 
+
 parser = argparse.ArgumentParser()
 requiredNamed = parser.add_argument_group('required named arguments')
 requiredNamed.add_argument('-f', action='store', dest='lfd_image',
@@ -25,8 +26,8 @@ results = parser.parse_args()
 
 def stringToRGB(base64_string):
     imgdata = base64.b64decode(str(base64_string))
-    image_result = open('test.jpg', 'wb') # create a writable image and write the decoding result
-    image_result.write(imgdata)
+    #image_result = open('test.jpg', 'wb') # create a writable image and write the decoding result
+    #image_result.write(imgdata)
     image = Image.open(BytesIO(imgdata))
     return cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR)
 
@@ -46,9 +47,11 @@ def white_balance(img):
 def my_mean(sample):
     return sum(sample)/len(sample)
 
-img=cv2.imread("test.jpg")
-#img = stringToRGB(results.lfd_image)
+#img=cv2.imread("test.jpg")
+img = stringToRGB(results.lfd_image)
 img = white_balance(img)
+#norm = np.zeros((800,800))
+#img = cv2.normalize(img,  norm, 0, 255, cv2.NORM_MINMAX)
 img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 img = img.astype(np.uint8)
 img2 = img
@@ -63,21 +66,27 @@ for i in range(rows):
 y_offset = []
 for y_pos in y:
    y_offset.append(y_pos-min(y))
+y_offset = y
+
 
 data_matrix = list(zip(x,y_offset))
 data_matrix = pd.DataFrame(data_matrix,columns=["position","intensity"])
 intensities = data_matrix["intensity"]
-indices = find_peaks(intensities, distance=20)[0]
+indices = find_peaks(intensities, prominence=10, distance=20)[0]
+prominences = scipy.signal.peak_prominences(intensities, indices, wlen=None)
 tMin = scipy.signal.argrelmin(intensities.values)[0]
+
 aucs = []
 
 # get two highest peaks
-new_intensity_order = sorted([intensities[i] for i in indices], reverse=True)[0:2]
+if len(intensities) >= 2:
+    new_intensity_order = sorted([intensities[i] for i in indices], reverse=True)[0:2]
+else:
+    new_intensity_order = intensities
 new_indices = [x for x in indices if intensities[x] in new_intensity_order]
 minima = []
 minima_pairs = []
-print(new_indices)
-print(tMin)
+
 for i in new_indices:
     left_min = [x for x in tMin if x < i][-1]
     right_min = [x for x in tMin if x > i][0]
@@ -141,7 +150,7 @@ for minima_pair in minima_pairs:
         fill='toself'
     ))
 
-fig.write_html("new_test.html")
+#fig.write_html("new_test.html")
 # convert graph to PNG and encode it
 png = plotly.io.to_image(fig)
 png_base64 = base64.b64encode(png).decode('ascii')
