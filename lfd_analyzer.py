@@ -47,7 +47,7 @@ def white_balance(img):
 def my_mean(sample):
     return sum(sample)/len(sample)
 
-#img=cv2.imread("test.jpg")
+# img=cv2.imread("2456.jpg")
 img = stringToRGB(results.lfd_image)
 img = white_balance(img)
 #norm = np.zeros((800,800))
