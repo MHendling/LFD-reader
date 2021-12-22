@@ -52,6 +52,7 @@ img = stringToRGB(results.lfd_image)
 #img = white_balance(img)
 
 img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
 # remove noise
 se=cv2.getStructuringElement(cv2.MORPH_RECT , (5,5))
 bg=cv2.morphologyEx(img, cv2.MORPH_DILATE, se)
