@@ -49,11 +49,21 @@ def my_mean(sample):
 
 #img=cv2.imread("test.jpg")
 img = stringToRGB(results.lfd_image)
-img = white_balance(img)
-#norm = np.zeros((800,800))
-#img = cv2.normalize(img,  norm, 0, 255, cv2.NORM_MINMAX)
+#img = white_balance(img)
+
 img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-img = img.astype(np.uint8)
+# remove noise
+se=cv2.getStructuringElement(cv2.MORPH_RECT , (5,5))
+bg=cv2.morphologyEx(img, cv2.MORPH_DILATE, se)
+out_gray=cv2.divide(img, bg, scale=255)
+#out_binary=cv2.threshold(out_gray, 0, 255, cv2.THRESH_OTSU )[1]
+#cv2.imwrite('binary.png',out_binary)
+#cv2.imwrite('gray.png',out_gray)
+#blur = cv2.blur(img,(2,2))
+#blur = cv2.blur(out_gray,(2,2))
+img = out_gray
+#img = blur
+#img = img.astype(np.uint8)
 img2 = img
 img = cv2.bitwise_not(img)
 rows,cols = img.shape
@@ -66,16 +76,15 @@ for i in range(rows):
 y_offset = []
 for y_pos in y:
    y_offset.append(y_pos-min(y))
-y_offset = y
+#y_offset = y
 
 
 data_matrix = list(zip(x,y_offset))
 data_matrix = pd.DataFrame(data_matrix,columns=["position","intensity"])
 intensities = data_matrix["intensity"]
-indices = find_peaks(intensities, prominence=10, distance=20)[0]
+indices = find_peaks(intensities, prominence=5, distance=20)[0]
 prominences = scipy.signal.peak_prominences(intensities, indices, wlen=None)
 tMin = scipy.signal.argrelmin(intensities.values)[0]
-
 aucs = []
 
 # get two highest peaks
@@ -86,10 +95,11 @@ else:
 new_indices = [x for x in indices if intensities[x] in new_intensity_order]
 minima = []
 minima_pairs = []
-
 for i in new_indices:
-    left_min = [x for x in tMin if x < i][-1]
-    right_min = [x for x in tMin if x > i][0]
+    left_min = intensities[(i-5):i].idxmin()
+    right_min = intensities[i:(i+5)].idxmin()
+    #left_min = [x for x in tMin if x < i][-1]
+    #right_min = [x for x in tMin if x > i][0]
     y = intensities[left_min:right_min]
     minima.append(left_min)
     minima.append(right_min)
