@@ -8,10 +8,22 @@
   background-color: #aaa;
   //padding:1em;
 
+  & div {
+    padding: 1em;
+  }
+
   & img.analyzerImage {
-    margin: 0.5em 0.5em 0 0.5em;
     max-width: 100%;
     max-height: 80vh;
+  }
+
+  & div.analyzerResults {
+    display: grid;
+    grid-template-columns: 30% auto;
+    grid-row-gap: 0.5em;
+
+    padding: 1em;
+    background-color: #eaeaea;
   }
 }
 
