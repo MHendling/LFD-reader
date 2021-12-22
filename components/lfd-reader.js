@@ -31,7 +31,11 @@ const LfdReader = ({onSendImageData}) => {
             try {
                 const stream = await navigator?.mediaDevices?.getUserMedia({
                     video: {
-                        facingMode: 'environment'
+                        facingMode: 'environment',
+                        width: 1920,
+                        height: 1080,
+//                        width: { min: 1024, ideal: 1280, max: 1920 },
+//                        height: { min: 576, ideal: 720, max: 1080 }
                     },
                     audio: false,
                 });
@@ -73,6 +77,7 @@ const LfdReader = ({onSendImageData}) => {
         const cropCanvasWidth = canvasWidth * 0.2;
         const cropCanvasHeight = canvasHeight * 0.5;
 
+        //cameraSensorRef.current.getContext('2d').drawImage(cameraViewRef.current,0,0)
 
         cameraSensorRef.current.getContext('2d').drawImage(cameraViewRef.current,
             cropStreamX,
