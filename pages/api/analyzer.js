@@ -9,7 +9,7 @@ export default async function handler(req, res) {
         const imgData = paramData?.imgData.split(',')[1];
 
         // TODO: add settings properly to python spawn call
-        const childPython = await spawn('python', ['lfd_analyzer.py', '-f', imgData, '-s', settings]); // <-- add settings here
+        const childPython = await spawn('python3', ['lfd_analyzer.py', '-f', imgData, '-s', settings]); // <-- add settings here
 
         childPython.stdout.on('data', (data) => {
             //res.status(200).send(data);

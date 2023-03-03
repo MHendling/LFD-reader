@@ -6,8 +6,8 @@ const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
 const handle = app.getRequestHandler();
 const httpsOptions = {
-    key: fs.readFileSync("./certificates/localhost-key.pem"),
-    cert: fs.readFileSync("./certificates/localhost.pem"),
+    key: fs.readFileSync("/etc/letsencrypt/live/hmd.ait.ac.at/privkey.pem", "utf8"),
+    cert: fs.readFileSync("/etc/letsencrypt/live/hmd.ait.ac.at/fullchain.pem", "utf8"),
 };
 app.prepare().then(() => {
     createServer(httpsOptions, (req, res) => {

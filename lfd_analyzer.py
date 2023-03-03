@@ -22,7 +22,7 @@ requiredNamed.add_argument('--version', action='version', version='%(prog)s 1.0'
 
 results = parser.parse_args()
 # we should have results.settings now
-#print(results.settings)
+parameter_settings = json.loads(results.settings)
 
 def stringToRGB(base64_string):
     imgdata = base64.b64decode(str(base64_string))
@@ -31,7 +31,7 @@ def stringToRGB(base64_string):
     image = Image.open(BytesIO(imgdata))
     return cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR)
 
-def calibrate(y,a,b,c,d):
+def parameter_fit(y,a,b,c,d):
     x = c*((((a-d)/(y-d))-1)**(1/b))
     return x
 
@@ -49,7 +49,7 @@ def my_mean(sample):
 
 # img=cv2.imread("2456.jpg")
 img = stringToRGB(results.lfd_image)
-#img = white_balance(img)
+img = white_balance(img)
 
 img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
@@ -87,95 +87,125 @@ indices = find_peaks(intensities, prominence=5, distance=20)[0]
 prominences = scipy.signal.peak_prominences(intensities, indices, wlen=None)
 tMin = scipy.signal.argrelmin(intensities.values)[0]
 aucs = []
+real_aucs = []
 
-# get two highest peaks
-if len(intensities) >= 2:
-    new_intensity_order = sorted([intensities[i] for i in indices], reverse=True)[0:2]
-else:
-    new_intensity_order = intensities
-new_indices = [x for x in indices if intensities[x] in new_intensity_order]
-minima = []
-minima_pairs = []
-for i in new_indices:
-    left_min = intensities[(i-5):i].idxmin()
-    right_min = intensities[i:(i+5)].idxmin()
-    #left_min = [x for x in tMin if x < i][-1]
-    #right_min = [x for x in tMin if x > i][0]
-    y = intensities[left_min:right_min]
-    minima.append(left_min)
-    minima.append(right_min)
-    minima_pairs.append((left_min,right_min))
-    integral = sum(intensities[left_min:right_min])
-    aucs.append(integral)
+try:
+    # get two highest peaks
+    if len(intensities) >= 2:
+        new_intensity_order = sorted([intensities[i] for i in indices], reverse=True)[0:2]
+    else:
+        new_intensity_order = intensities
+    new_indices = [x for x in indices if intensities[x] in new_intensity_order]
+    minima = []
+    minima_pairs = []
+    for i in new_indices:
+        left_min = intensities[(i-5):i].idxmin()
+        right_min = intensities[i:(i+5)].idxmin()
+        #left_min = [x for x in tMin if x < i][-1]
+        #right_min = [x for x in tMin if x > i][0]
+        y = intensities[left_min:right_min]
+        minima.append(left_min)
+        minima.append(right_min)
+        minima_pairs.append((left_min,right_min))
+        integral = sum(intensities[left_min:right_min])
+        aucs.append(round(integral,2))
+        if parameter_settings["id"] != "Default":
+            real_aucs.append(str(parameter_fit(integral,float(parameter_settings["a"]), float(parameter_settings["b"]), float(parameter_settings["c"]), float(parameter_settings["d"]))))
+        else:
+            real_aucs.append("NaN")
+    if len(aucs) == 1:
+        aucs.append(aucs[0])
+        real_aucs.append(real_aucs[0])
 
-sum_integral = sum(aucs)
-percentages = []
-for a in aucs:
-    percentage = (a / sum_integral) * 100
-    percentages.append(percentage)
+    sum_integral = sum(aucs)
+    percentages = []
+    for a in aucs:
+        percentage = round(((a / sum_integral) * 100),2)
+        percentages.append(percentage)
 
 
-fig = go.Figure()
-fig.add_trace(go.Scatter(
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(
+        y=intensities,
+        mode='lines+markers',
+        name='Original Plot'
+    ))
+
+    fig.add_trace(go.Scatter(
+        x=indices,
+        y=[intensities[j] for j in indices],
+        mode='markers',
+        marker=dict(
+            size=8,
+            color='red',
+            symbol='cross'
+        ),
+        name='Detected Peaks'
+    ))
+    fig.add_trace(go.Scatter(
+        x=minima,
+        y=[intensities[j] for j in minima],
+        mode='markers',
+        marker=dict(
+            size=8,
+            color='green',
+            symbol='cross'
+        ),
+        name='Detected Minima'
+    ))
+
+    for minima_pair in minima_pairs:
+        fig.add_shape(type='line',
+                        x0=minima_pair[0],
+                        y0=intensities[minima_pair[0]],
+                        x1=minima_pair[1],
+                        y1=intensities[minima_pair[1]],
+                        line=dict(color='Red',),
+                        xref='x',
+                        yref='y'
+        )
+        fig.add_trace(go.Scatter(
+            x0=minima_pair[0],
+            y=intensities[minima_pair[0]:(minima_pair[1]+1)],
+            fill='toself'
+        ))
+
+    #fig.write_html("new_test.html")
+    # convert graph to PNG and encode it
+    png = plotly.io.to_image(fig)
+    png_base64 = base64.b64encode(png).decode('ascii')
+
+    results = {
+        "AUCs": aucs,
+        "Percentages": percentages,
+        "c/t": round((aucs[1] / aucs[0]),2),
+        "t/c": round((aucs[0] / aucs[1]),2),
+        "Plot": png_base64,
+        "Concentrations": real_aucs
+
+    }
+except:
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(
     y=intensities,
     mode='lines+markers',
     name='Original Plot'
-))
-
-fig.add_trace(go.Scatter(
-    x=indices,
-    y=[intensities[j] for j in indices],
-    mode='markers',
-    marker=dict(
-        size=8,
-        color='red',
-        symbol='cross'
-    ),
-    name='Detected Peaks'
-))
-fig.add_trace(go.Scatter(
-    x=minima,
-    y=[intensities[j] for j in minima],
-    mode='markers',
-    marker=dict(
-        size=8,
-        color='green',
-        symbol='cross'
-    ),
-    name='Detected Minima'
-))
-
-for minima_pair in minima_pairs:
-    fig.add_shape(type='line',
-                    x0=minima_pair[0],
-                    y0=intensities[minima_pair[0]],
-                    x1=minima_pair[1],
-                    y1=intensities[minima_pair[1]],
-                    line=dict(color='Red',),
-                    xref='x',
-                    yref='y'
-    )
-    fig.add_trace(go.Scatter(
-        x0=minima_pair[0],
-        y=intensities[minima_pair[0]:(minima_pair[1]+1)],
-        fill='toself'
     ))
 
-#fig.write_html("new_test.html")
-# convert graph to PNG and encode it
-png = plotly.io.to_image(fig)
-png_base64 = base64.b64encode(png).decode('ascii')
+    png = plotly.io.to_image(fig)
+    png_base64 = base64.b64encode(png).decode('ascii')
 
-results = {
-    "AUCs": aucs,
-    "Percentages": percentages,
-    "c/t": aucs[1] / aucs[0],
-    "t/c": aucs[0] / aucs[1],
-    "Plot": png_base64
-
-}
-
+    results = {
+        "AUCs": ["something went wrong, please try again"],
+        "Percentages": ["NaN", "NaN"],
+        "c/t": "NaN",
+        "t/c": "NaN",
+        "Plot": png_base64,
+    }
 
 # convert into JSON:
+json_results = "'"+str(json.dumps(results))+"'"
 json_results = json.dumps(results)
+with open("test.txt","w") as f:
+	f.write(json_results)
 print(json_results)

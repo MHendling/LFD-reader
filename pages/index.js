@@ -23,20 +23,31 @@ const fetchCurveFittingSettings = async () => {
     return await curveFittingSettingsQuery.json();
 }
 
+
+const fetchCurveFittingSettings2 = async () => {
+    const curveFittingSettingsQuery2 = await fetch('/api/curve_fitting_settings',
+    {
+    method: 'GET',
+    agent
+    });
+
+    return await curveFittingSettingsQuery2.json();
+}
+
+
 export default function Home({mongoDbAlive, curveFittingSettings}) {
     const [currentSettings, setCurrentSettings] = useState(undefined);
     const [allSettings, setAllSettings] = useState(curveFittingSettings);
 
-
     const handleAddSettings = useCallback(async (settings) => {
-        const newSettings = await fetch('https://localhost:3000/api/curve_fitting_settings', {
+        const newSettings = await fetch('/api/curve_fitting_settings', {
             method: 'POST',
             agent,
             body: JSON.stringify(settings)
         });
 
         // bulky, we refetch all our datas. this is a prototype after all.
-        const allSettings = await fetchCurveFittingSettings();
+    	const allSettings = await fetchCurveFittingSettings2();
         setAllSettings(allSettings);
 
         const newSettingData = await newSettings.json();

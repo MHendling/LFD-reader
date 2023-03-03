@@ -18,7 +18,7 @@ const Analyzer = ({imageData, onCancel, curveFittingSettings}) => {
     const [resultPlot, setResultPlot] = useState('');
     const [transmitting, setTransmitting] = useState(false);
 
-    const [crop, setCrop] = useState({aspect: 1 / 5});
+    const [crop, setCrop] = useState({aspect: 1 / 4});
 
     //console.log(cropperRef);
     const handleSubmit = useCallback(async () => {
@@ -42,34 +42,36 @@ const Analyzer = ({imageData, onCancel, curveFittingSettings}) => {
             body: JSON.stringify(paramData)
         });
 
-        const responseText = JSON.parse(await response.json());
-
+        const responseText = JSON.parse(JSON.parse(await response.json()));
         setTransmitting(false);
         setResult(responseText);
         setResultPlot(responseText?.Plot);
     }, [cropperRef]);
-
+	
     const handleCancel = useCallback(() => {
         onCancel();
     }, []);
-
+	
     return (
+	
         <div className={styles.analyzerContainer}>
             {
                 result ? <div>
                         <h1>Results</h1>
-                        <img src={"data:image/png;charset=utf-8;base64," + resultPlot} className={styles.analyzerImage}
+			<img src={"data:image/png;charset=utf-8;base64," + resultPlot} className={styles.analyzerImage}
                              alt="result-plot"/>
                         {/*<div dangerouslySetInnerHTML={{__html: result}}/>*/}
                         <div className={styles.analyzerResults}>
                             <span>AUCs</span>
                             <span>{result?.AUCs?.join(', ')}</span>
                             <span>Percentages</span>
-                            <span>{result?.Percentages.join(', ')}</span>
+                            <span>{result?.Percentages?.join(', ')}</span>
                             <span>c/t</span>
                             <span>{result["c/t"]}</span>
                             <span>t/c</span>
                             <span>{result["t/c"]}</span>
+                            <span>Conc</span>
+                            <span>{result?.Concentrations?.join(', ')}</span>
                         </div>
                     </div> :
                     <Cropper
@@ -87,13 +89,19 @@ const Analyzer = ({imageData, onCancel, curveFittingSettings}) => {
                         guides={true}
                         movable={false}
                         ref={cropperRef}
-                    />}
-
-            <div className={styles.analyzerButtons}>
-                <Button onClick={handleCancel} intent="danger" large icon="delete" fill>Cancel</Button>
-                <Button onClick={handleSubmit} intent="success" icon="send-message"
-                        large fill loading={transmitting}>Submit</Button>
-            </div>
+		/>}
+                    
+           {
+            result ?  <div className={styles.analyzerButtons}>
+                         <Button onClick={handleCancel} intent="success" large icon="arrow-left" fill>Back</Button>
+                      </div> :
+            			<div className={styles.analyzerButtons}>
+                			<Button onClick={handleCancel} intent="danger" large icon="delete" fill>Cancel</Button>
+                			<Button onClick={handleSubmit} intent="success" icon="send-message"
+                        		large fill loading={transmitting}>Submit</Button>
+                                </div>
+            }
+        
 
 
             <ToastContainer/>
